@@ -18,7 +18,7 @@ pip install requests
 ## Usage
 
 1. Open the script file `main.py` in a editor of your choice.
-2. Replace the placeholder values in the `user_data` list with your actual login credentials with the format [MAIL, PASSWD].
+2. Replace the placeholder values in the `user_data` list with your actual login credentials with the format [E-Mail, Password].
 4. Choose the desired address from the `addresses` list by change the index (0 in this example)
 ```python
 address_for_download = addresses[0][1])
