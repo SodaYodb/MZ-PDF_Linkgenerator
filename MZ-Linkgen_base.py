@@ -138,4 +138,4 @@ def get_pdf_link(address):
 user_data = ['MAIL', 'PASSWD'] # insert legit userdata here
             # Mail , password
 
-print(get_pdf_link(addresses[3][1]))
+print(get_pdf_link(addresses[0][1]))
