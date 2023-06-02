@@ -19,13 +19,11 @@ pip install requests
 
 1. Open the script file `main.py` in a editor of your choice.
 2. Replace the placeholder values in the `user_data` list with your actual login credentials. Each element in the list represents a user with the format [ID, MAIL, PASSWD]. You can add multiple users by appending additional lists within the user_data list.
-4. Choose the desired address from the `addresses` list by change the index (3 in this example)
+4. Choose the desired address from the `addresses` list by change the index (0 in this example)
    ```python
-   adress_for_download = addresses[3][1])
+   adress_for_download = addresses[0][1])
    ```
 
 The script will print the download link for the PDF document. You can copy and paste the link into your browser to download the document.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
+Feel free to modify the script according to your needs or incorporate it into your own projects.
