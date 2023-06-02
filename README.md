@@ -1,4 +1,4 @@
-# MZ-PDF_Linkgenerator
+# Mitteldeutsche Zeitung - PDF Linkgenerator
 
 This script allows you to generate a legit link for download PDF documents from the "Mitteldeutsche Zeitung ePaper" website.
 
