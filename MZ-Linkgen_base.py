@@ -3,33 +3,28 @@ import json
 import urllib.parse
 from datetime import datetime
 
-user_data = [
-    # ID, Mail , password
-    ['ID', 'MAIL', 'PASSWD'] # insert legit userdata here
-]
-
 login_url = "https://epaper.mz.de/delivery/v3/entitlement/login"
 gen_info_url = "https://epaper.mz.de/"
 graphql_addr = "https://epaper.mz.de/delivery/graphql"
 
 addresses= [
-    ["Ascherslebener Zeitung", "https://kiosk.purplemanager.com/mz-aschersleben#/main/issues", 1],
-    ["Bernburger Kurier", "https://kiosk.purplemanager.com/mz-bernburger#/main/issues", 2],
-    ["Bitterfelder Zeitung", "https://kiosk.purplemanager.com/mz-bitterfelder#/main/issues", 3],
-    ["Anhalt-Kurier Dessau", "https://kiosk.purplemanager.com/mz-dessau#/main/issues", 4],
-    ["Mansfelder Zeitung Eisleben", "https://kiosk.purplemanager.com/mz-eisleben#/main/issues", 5],
-    ["Saalekurier Halle", "https://kiosk.purplemanager.com/mz-halle#/main/issues", 6],
-    ["Mansfelder Zeitung Hettstedt", "https://kiosk.purplemanager.com/mz-hettstedt#/main/issues", 7],
-    ["Elbe-Kurier Jessen", "https://kiosk.purplemanager.com/mz-jessen#/main/issues", 8],
-    ["Köthener Zeitung", "https://kiosk.purplemanager.com/mz-koethener#/main/issues", 9],
-    ["Neuer Landbote Merseburg", "https://kiosk.purplemanager.com/mz-merseburg#/main/issues", 10],
-    ["Naumburger Tageblatt", "https://kiosk.purplemanager.com/mz-naumburger#/main/issues", 11],
-    ["Naumburger Tageblatt Nebra", "https://kiosk.purplemanager.com/mz-nebra#/main/issues", 12],
-    ["Quedlinburger Harzbote", "https://kiosk.purplemanager.com/mz-quedlinburger#/main/issues", 13],
-    ["Sangerhäuser Zeitung", "https://kiosk.purplemanager.com/mz-sangerhaeuser#/main/issues", 14],
-    ["Elbe-Kurier Wittenberg", "https://kiosk.purplemanager.com/mz-wittenberg#/main/issues", 15],
-    ["Weißenfelser Zeitung", "https://kiosk.purplemanager.com/mz-weissenfelser#/main/issues", 16],
-    ["Zeitzer Zeitung", "https://kiosk.purplemanager.com/mz-zeitzer#/main/issues", 17]
+    ["Ascherslebener Zeitung", "https://kiosk.purplemanager.com/mz-aschersleben#/main/issues"],
+    ["Bernburger Kurier", "https://kiosk.purplemanager.com/mz-bernburger#/main/issues"],
+    ["Bitterfelder Zeitung", "https://kiosk.purplemanager.com/mz-bitterfelder#/main/issues"],
+    ["Anhalt-Kurier Dessau", "https://kiosk.purplemanager.com/mz-dessau#/main/issues"],
+    ["Mansfelder Zeitung Eisleben", "https://kiosk.purplemanager.com/mz-eisleben#/main/issues"],
+    ["Saalekurier Halle", "https://kiosk.purplemanager.com/mz-halle#/main/issues"],
+    ["Mansfelder Zeitung Hettstedt", "https://kiosk.purplemanager.com/mz-hettstedt#/main/issues"],
+    ["Elbe-Kurier Jessen", "https://kiosk.purplemanager.com/mz-jessen#/main/issues"],
+    ["Köthener Zeitung", "https://kiosk.purplemanager.com/mz-koethener#/main/issues"],
+    ["Neuer Landbote Merseburg", "https://kiosk.purplemanager.com/mz-merseburg#/main/issues"],
+    ["Naumburger Tageblatt", "https://kiosk.purplemanager.com/mz-naumburger#/main/issues"],
+    ["Naumburger Tageblatt Nebra", "https://kiosk.purplemanager.com/mz-nebra#/main/issues",],
+    ["Quedlinburger Harzbote", "https://kiosk.purplemanager.com/mz-quedlinburger#/main/issues"],
+    ["Sangerhäuser Zeitung", "https://kiosk.purplemanager.com/mz-sangerhaeuser#/main/issues"],
+    ["Elbe-Kurier Wittenberg", "https://kiosk.purplemanager.com/mz-wittenberg#/main/issues"],
+    ["Weißenfelser Zeitung", "https://kiosk.purplemanager.com/mz-weissenfelser#/main/issues"],
+    ["Zeitzer Zeitung", "https://kiosk.purplemanager.com/mz-zeitzer#/main/issues"]
 ]
 
 man_headers ={
@@ -126,15 +121,21 @@ def build_full_addr(app_id, obj_id, full_obj, auth_token, down_name):
     full_link = base_url + app_id +"/"+ obj_id + "/" + full_obj +"/" + mid_url + auth_token + end_url
     return full_link
 
-# for example https://kiosk.purplemanager.com/mz-bitterfelder#/main/issues
-# choose from list adresses
-adress_for_download = addresses[3][1]
-app_id = get_app_ip(gen_info_url)
-doc_id = (get_doc_id(adress_for_download))
-obj_id = (get_obj_id(app_id, doc_id, graphql_addr, json_headers))
-auth_token = (perform_login(app_id, user_data[0][1], user_data[0][2], man_headers))
-full_obj = get_full_obj(app_id, obj_id, graphql_addr, json_headers, auth_token)
+def get_pdf_link(address):
+    app_id = get_app_ip(gen_info_url)
+    doc_id = (get_doc_id(address))
+    obj_id = (get_obj_id(app_id, doc_id, graphql_addr, json_headers))
+    auth_token = (perform_login(app_id, user_data[0], user_data[1], man_headers))
+    full_obj = get_full_obj(app_id, obj_id, graphql_addr, json_headers, auth_token)
+    
+    # Just the Date today maybe add the name of the newspaper
+    down_name = str(datetime.now().strftime("%Y-%m-%d")) + ".pdf"
+    
+    final = build_full_addr(app_id, obj_id, full_obj, auth_token, down_name)
+    return final
 
-down_name = str()str(datetime.now().strftime("%Y-%m-%d")) + ".pdf"
-final = build_full_addr(app_id, obj_id, full_obj, auth_token, down_name)
-print(final)
+
+user_data = ['MAIL', 'PASSWD'] # insert legit userdata here
+            # Mail , password
+
+print(get_pdf_link(addresses[3][1]))
