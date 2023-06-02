@@ -26,4 +26,12 @@ pip install requests
 
 The script will print the download link for the PDF document. You can copy and paste the link into your browser to download the document.
 
+To save the Document you could implement something like:
+```python
+with open((str(down_name) + ".pdf"), "wb") as f:
+   response = requests.get(final)
+   f.write(response.content)
+```
+
+
 Feel free to modify the script according to your needs or incorporate it into your own projects.
